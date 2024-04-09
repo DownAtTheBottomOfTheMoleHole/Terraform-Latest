@@ -19,6 +19,15 @@ jobs:
         run: |
           Install-Module -Name AU -Force -Confirm:$false
           Import-Module -Name AU -Force
+
+      - name: Check if nuspec file exists
+        shell: pwsh
+        run: |
+          if (-not (Test-Path -Path ./terraform.nuspec)) {
+            Write-Error "No nuspec file found in the package directory"
+            exit 1
+          }
+
       - name: Build Module
         shell: pwsh
         run: ./.scripts/update_nuspec.ps1
