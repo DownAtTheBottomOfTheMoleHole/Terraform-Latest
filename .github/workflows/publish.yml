@@ -13,7 +13,8 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v2
 
       - name: Choco pack
         uses: crazy-max/ghaction-chocolatey@v3.0.0
@@ -29,7 +30,7 @@ jobs:
         run: terraform -version
 
       - name: Save Choco package
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v2
         with:
           name: terraform-latest
           path: "${{ github.workspace }}/*.nupkg"
@@ -40,10 +41,8 @@ jobs:
     needs: build-terraform
 
     steps:
-      - uses: actions/checkout@v4
-
       - name: Restore Choco package
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v2
         with:
           name: terraform-latest
           path: ${{ github.workspace }}
