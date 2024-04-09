@@ -11,9 +11,13 @@ jobs:
   job1:
     name: "auto-update"
     runs-on: ubuntu-latest
-    if: ${{ startsWith(github.ref, 'refs/heads/dependabot/') || startsWith(github.ref, 'refs/heads/renovate/') }}
+    strategy:
+      matrix:
+        skip: ['renovate']
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Install AU module
         shell: pwsh
         run: |
@@ -38,13 +42,7 @@ jobs:
           git config --local user.name "github-actions[bot]"
 
       - name: Commit changes to terraform.nuspec
-        if: ${{ startsWith(github.ref, 'refs/heads/dependabot/') }}
         run: |
           git add terraform.nuspec
-          git commit -m "[dependabot skip] Update terraform-latest.nuspec"
-
-      - name: Commit changes to terraform.nuspec
-        if: ${{ startsWith(github.ref, 'refs/heads/renovate/') }}
-        run: |
-          git add terraform.nuspec
-          git commit -m "[renovate skip] Update terraform-latest.nuspec"
+          git commit -m "[${{ matrix.skip }} skip] Update terraform-latest.nuspec"
+        if: ${{ startsWith(github.ref, 'refs/heads/' + matrix.skip) }}
