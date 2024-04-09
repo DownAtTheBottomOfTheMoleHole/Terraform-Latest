@@ -561,3 +561,7 @@ ServiceFabricBackup/
 
 *.nupkg
 *.orig
+
+
+# infracost
+.infracost/
