@@ -52,7 +52,7 @@ function global:au_AfterUpdate {
     # Note: Cannot use au_SearchReplace for the releaseNotes because they are multi-lined
     $releaseNotes = Get-ReleaseNotes $Latest.Version $Latest.ChangelogUrl
     Write-Verbose $releaseNotes
-    $packagespath = '/../.packages'
+    $packagespath = '../.packages'
     $nuspec = Join-Path $packagespath "$($Latest.PackageName).nuspec" -Resolve
     Set-ReleaseNotes $nuspec $releaseNotes
 }
