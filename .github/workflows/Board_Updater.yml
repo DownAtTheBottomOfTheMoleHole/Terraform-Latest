@@ -9,17 +9,16 @@ on:
 
 jobs:
   alert:
-    #if: ${{ !github.event.issue.pull_request }}
     runs-on: ubuntu-latest
     steps:
-      - uses: danhellem/github-actions-issue-to-work-item@master
+      - name: Sync issue to Azure DevOps work item
+        uses: danhellem/github-actions-issue-to-work-item@v1.0.0
         env:
           ado_token: "${{ secrets.ADO_PAT }}"
           github_token: "${{ secrets.PAT }}"
           ado_organization: "${{ secrets.ado_organization }}"
           ado_project: "${{ secrets.ado_project }}"
           ado_area_path: "${{ secrets.ado_area_path }}"
-          #ado_iteration_path: "optional_iteration_path\\optional_iteration_path"
           ado_wit: "Product Backlog Item"
           ado_new_state: "New"
           ado_active_state: "Committed"
