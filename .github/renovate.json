@@ -1,9 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "addLabels": ["renovate"],
-  "allowPlugins": true,
   "assignAutomerge": true,
-  "assignees": [],
   "assigneesFromCodeOwners": true,
   "assigneesSampleSize": 2,
   "autoApprove": true,
@@ -17,13 +15,9 @@
     "enabled": true,
     "fileMatch": ["\\.ya?ml$"]
   },
-  "azureWorkItemId": 0,
   "bicep": {
     "fileMatch": ["\\.bicep$"]
   },
-  "cloneSubmodules": true,
-  "configMigration": true,
-  "configWarningReuseIssue": false,
   "dependencyDashboard": true,
   "dependencyDashboardAutoclose": true,
   "description": "standard CAG config",
@@ -34,14 +28,8 @@
     ]
   },
   "enabled": true,
-  "exposeAllEnv": false,
   "extends": ["config:recommended"],
   "fetchChangeLogs": "pr",
-  "git-submodules": {
-    "enabled": false,
-    "fileMatch": ["(^|/)\\.gitmodules$"],
-    "versioning": "git"
-  },
   "gitAuthor": "Renovate <renovate@rolfmoleman.com>",
   "github-actions": {
     "fileMatch": [
@@ -88,29 +76,12 @@
     "commitMessageTopic": "Homebrew Formula {{depName}}",
     "fileMatch": ["^Formula/[^/]+[.]rb$"]
   },
-  "html": {
-    "digest": {
-      "enabled": false
-    },
-    "fileMatch": ["\\.html?$"],
-    "pinDigests": false,
-    "versioning": "semver"
-  },
   "ignoreDeprecated": true,
-  "ignoreScripts": false,
   "ignoreUnstable": true,
-  "kotlin-script": {
-    "fileMatch": ["^.+\\.main\\.kts$"]
-  },
-  "kubernetes": {
-    "fileMatch": []
-  },
   "kustomize": {
     "fileMatch": ["(^|/)kustomization\\.ya?ml$"],
     "pinDigests": false
   },
-  "labels": [],
-  "logFile": "",
   "logFileLevel": "debug",
   "major": {
     "autoApprove": false,
@@ -122,17 +93,6 @@
     "automergeType": "pr",
     "description": "DO NOT automatically update and approve major versions"
   },
-  "maven": {
-    "fileMatch": [
-      "(^|/|\\.)pom\\.xml$",
-      "^(((\\.mvn)|(\\.m2))/)?settings\\.xml$"
-    ],
-    "versioning": "maven"
-  },
-  "maven-wrapper": {
-    "fileMatch": ["(^|\\/).mvn/wrapper/maven-wrapper.properties$"],
-    "versioning": "maven"
-  },
   "minor": {
     "autoApprove": true,
     "autodiscover": true,
@@ -143,31 +103,11 @@
     "automergeType": "pr",
     "description": "Automatically update and approve minor versions"
   },
-  "nodenv": {
-    "fileMatch": ["(^|/)\\.node-version$"],
-    "versioning": "node"
-  },
   "npm": {
-    "digest": {
-      "prBodyDefinitions": {
-        "Change": "{{#if displayFrom}}`{{{displayFrom}}}` -> {{else}}{{#if currentValue}}`{{{currentValue}}}` -> {{/if}}{{/if}}{{#if displayTo}}`{{{displayTo}}}`{{else}}`{{{newValue}}}`{{/if}}"
-      }
-    },
     "fileMatch": ["(^|/)package\\.json$"],
-    "prBodyDefinitions": {
-      "Change": "[{{#if displayFrom}}`{{{displayFrom}}}` -> {{else}}{{#if currentValue}}`{{{currentValue}}}` -> {{/if}}{{/if}}{{#if displayTo}}`{{{displayTo}}}`{{else}}`{{{newValue}}}`{{/if}}]({{#if depName}}https://renovatebot.com/diffs/npm/{{replace '/' '%2f' depName}}/{{{currentVersion}}}/{{{newVersion}}}{{/if}})"
-    },
     "versioning": "npm"
   },
   "npmrcMerge": true,
-  "nuget": {
-    "fileMatch": [
-      "\\.(?:cs|fs|vb)proj$",
-      "\\.(?:props|targets)$",
-      "(^|/)dotnet-tools\\.json$",
-      "(^|/)global\\.json$"
-    ]
-  },
   "onboarding": true,
   "onboardingConfig": {
     "$schema": "https://docs.renovatebot.com/renovate-schema.json"
@@ -183,26 +123,8 @@
     "automergeType": "pr",
     "description": "Automatically update and approve patch versions"
   },
-  "pin": {
-    "commitMessageAction": "Pin",
-    "group": {
-      "commitMessageExtra": "",
-      "commitMessageTopic": "dependencies"
-    },
-    "groupName": "Pin Dependencies",
-    "groupSlug": "pin-dependencies",
-    "rebaseWhen": "behind-base-branch"
-  },
   "prConcurrentLimit": 10,
   "prCreation": "immediate",
-  "pre-commit": {
-    "commitMessageTopic": "pre-commit hook {{depName}}",
-    "enabled": false,
-    "fileMatch": ["(^|/)\\.pre-commit-config\\.ya?ml$"],
-    "prBodyNotes": [
-      "Note: The `pre-commit` manager in Renovate is not supported by the `pre-commit` maintainers or community. Please do not report any problems there, instead [create a Discussion in the Renovate repository](https://github.com/renovatebot/renovate/discussions/new) if you have any questions."
-    ]
-  },
   "pruneBranchAfterAutomerge": true,
   "rebaseWhen": "auto",
   "recreateWhen": "auto",
@@ -211,22 +133,12 @@
   "semanticCommitScope": "deps",
   "semanticCommitType": "chore",
   "separateMajorMinor": true,
-  "separateMinorPatch": false,
   "separateMultipleMajor": true,
   "terraform": {
     "commitMessageTopic": "Terraform {{depName}}",
     "fileMatch": ["\\.tf$"],
-    "pinDigests": false
-  },
-  "terraform-version": {
-    "extractVersion": "^v(?<version>.*)$",
-    "fileMatch": ["(^|/)\\.terraform-version$"],
-    "versioning": "hashicorp"
-  },
-  "tflint-plugin": {
-    "commitMessageTopic": "TFLint plugin {{depName}}",
-    "extractVersion": "^v(?<version>.*)$",
-    "fileMatch": ["\\.tflint\\.hcl$"]
+    "pinDigests": false,
+    "automerge": true
   },
   "timezone": "GB",
   "unicodeEmoji": true,
