@@ -9,20 +9,17 @@ permissions:
 on:
   schedule:
     - cron: "0 0 * * *" # every day at 1AM
-  workflow_dispatch:
     branches:
       - main
+workflow_dispatch:
 
 env:
-  # To use hub command in Github Action: https://github.com/github/hub#github-actions
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  # If you use personal token, replace email/user accordingly
   USER_EMAIL: ${{ secrets.PR_USER_EMAIL }}
   USER_NAME: ${{ secrets.PR_USERNAME }}
-  # Apply linter fixes configuration
-  APPLY_FIXES: all # When active, APPLY_FIXES must also be defined as environment variable (in github/workflows/mega-linter.yml or other CI tool)
-  APPLY_FIXES_EVENT: all # Decide which event triggers application of fixes in a commit or a PR (pull_request, push, all)
-  APPLY_FIXES_MODE: pull_request # If APPLY_FIXES is used, defines if the fixes are directly committed (commit) or posted in a PR (pull_request)
+  APPLY_FIXES: all
+  APPLY_FIXES_EVENT: all
+  APPLY_FIXES_MODE: pull_request
   CLEAR_REPORT_FOLDER: true
   JAVASCRIPT_DEFAULT_STYLE: prettier
   JSON_REPORTER: true
@@ -45,23 +42,17 @@ env:
   VALIDATE_ALL_CODEBASE: true
 
 jobs:
-  ##############################################################
-  #######                update docs after               #######
-  ##############################################################
-
   terraform-docs:
     if: ${{ !cancelled() }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Render terraform docs inside the README.MD and push changes back to PR branch
         uses: terraform-docs/gh-actions@v1.1.0
-        if: success() || failure()
         with:
-          #args: "-lockfile --read-comments --required --sensitive --show all --header-from ./terraform-docs/tf_header.txt --footer-from ./terraform-docs/tf_footer.txt"
           config-file: "/.config/.readme-terraform-docs.yml"
           find-dir: .
           git-commit-message: "[Terraform-docs] Updated readme.MD"
@@ -69,20 +60,13 @@ jobs:
           git-push-sign-off: true
           git-push-user-email: CAG-terraform-docs@ca-grp.com
           git-push-user-name: CAG-terraform-docs
-          indention: 4
+          indention: 3
           output-file: README.MD
-          #output-format: "markdown table"
-          #output-method: inject
-          ##recursive: true
-          ##recursive-path: "modules"
           template: "<!-- start_of_terraform_docs -->\n{{ .Content }}\n<!-- end_of_terraform_docs -->"
-          ##working-dir: .
 
       - name: Render terraform docs inside the TERRAFORM.MD and push changes back to PR branch
         uses: terraform-docs/gh-actions@v1.1.0
-        if: success() || failure()
         with:
-          #args: "-lockfile --read-comments --required --sensitive --show all --header-from ./terraform-docs/tf_header.txt --footer-from ./terraform-docs/tf_footer.txt"
           config-file: "/.config/.terraform-terraform-docs.yml"
           find-dir: .
           git-commit-message: "[Terraform-docs] Updated TERRAFORM.MD"
@@ -90,61 +74,39 @@ jobs:
           git-push-sign-off: true
           git-push-user-email: CAG-terraform-docs@ca-grp.com
           git-push-user-name: CAG-terraform-docs
-          indention: 4
+          indention: 2
           output-file: TERRAFORM.MD
-          #output-format: "markdown table"
-          #output-method: inject
-          #recursive: true
-          #recursive-path: "modules"
           template: "<!-- start_of_terraform_docs -->\n{{ .Content }}\n<!-- end_of_terraform_docs -->"
-          #working-dir: .
 
   megalinter:
-    if: ${{ !cancelled() && (needs.terraform-docs.result == 'success' || needs.terraform-docs.result == 'failure') }} # only run after tfupdate job has finished
+    if: ${{ !cancelled() && (needs.terraform-docs.result == 'success' || needs.terraform-docs.result == 'failure') }}
     needs: terraform-docs
     name: MegaLinter
     runs-on: ubuntu-latest
     permissions:
-      # Give the default GITHUB_TOKEN write permission to commit and push, comment issues & post new PR
-      # Remove the ones you do not need
       contents: write
       issues: write
       pull-requests: write
     steps:
-      # Git Checkout
       - name: Checkout Code
-        if: success() || failure()
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
         with:
           token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
-          #fetch-depth: 0 # If you use VALIDATE_ALL_CODEBASE = true, you can remove this line to improve performances
 
-      # MegaLinter
       - name: MegaLinter
         id: ml
-        if: success() || failure()
-        # You can override MegaLinter flavor used to have faster performances
-        # More info at https://megalinter.io/flavors/
         uses: oxsecurity/megalinter@v7.10.0
         env:
-          # All available variables are described in documentation
-          # https://megalinter.io/configuration/
-          #VALIDATE_ALL_CODEBASE: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }} # Validates all source when push on main, else just the git diff with main. Override with true if you always want to lint all sources
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # ADD YOUR CUSTOM ENV VARIABLES HERE OR DEFINE THEM IN A FILE .mega-linter.yml AT THE ROOT OF YOUR REPOSITORY
-          # DISABLE: COPYPASTE,SPELL # Uncomment to disable copy-paste and spell checks
 
-      # Upload MegaLinter artifacts
       - name: Archive production artifacts
-        if: ${{ success() }} || ${{ failure() }}
-        uses: actions/upload-artifact@v4.3.1
+        uses: actions/upload-artifact@v2
         with:
           name: MegaLinter reports
           path: |
             megalinter-reports
             mega-linter.log
 
-      # Create pull request if applicable (for now works only on PR from same repository, not from forks)
       - name: Create Pull Request with applied fixes
         id: cpr
         if: steps.ml.outputs.has_updated_sources == 1 && (env.APPLY_FIXES_EVENT == 'all' || env.APPLY_FIXES_EVENT == github.event_name) && env.APPLY_FIXES_MODE == 'pull_request' && (github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository) && !contains(github.event.head_commit.message, 'skip fix')
@@ -201,14 +163,12 @@ jobs:
 
             [1]: https://github.com/peter-evans/create-pull-request
             [2]: https://github.com/oxsecurity/megalinter
-          branch: fix/megalinter-automatic-fixes # The pull request branch name.
-          #branch-suffix: random #The branch suffix type when using the alternative branching strategy. Valid values are random, timestamp and short-commit-hash. See Alternative strategy for details.
+          branch: fix/megalinter-automatic-fixes
           committer: CAG-megalinter-bot <megalinter@ca-grp.com>
           commit-message: "[MegaLinter] Apply linters automatic fixes"
-          delete-branch: true # Delete the branch when closing pull requests, and when undeleted after merging.
-          labels: bot # A comma or newline-separated list of labels.
-          #team-reviewers:  /platform-automation # A comma or newline-separated list of GitHub teams to request a review from. Note that a repo scoped PAT, or equivalent GitHub App permissions, are required.
-          title: "[MegaLinter] Apply linters automatic fixes" # The title of the pull request.
+          delete-branch: true
+          labels: bot
+          title: "[MegaLinter] Apply linters automatic fixes"
           token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
 
       - name: Create PR output
@@ -217,7 +177,6 @@ jobs:
           echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
           echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
 
-      # Push new commit if applicable (for now works only on PR from same repository, not from forks)
       - name: Prepare commit
         if: steps.ml.outputs.has_updated_sources == 1 && (env.APPLY_FIXES_EVENT == 'all' || env.APPLY_FIXES_EVENT == github.event_name) && env.APPLY_FIXES_MODE == 'commit' && github.ref != 'refs/heads/main' && (github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository) && !contains(github.event.head_commit.message, 'skip fix')
         run: sudo chown -Rc $UID .git/
