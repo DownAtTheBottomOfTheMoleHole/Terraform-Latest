@@ -37,7 +37,7 @@ For more information on previous releases, check out the changelog on [GitHub](h
     <docsUrl>https://www.terraform.io/docs/index.html</docsUrl>
     <bugTrackerUrl>https://github.com/hashicorp/terraform/issues</bugTrackerUrl>
     <projectSourceUrl>https://github.com/hashicorp/terraform</projectSourceUrl>
-    <packageSourceUrl>https://github.com/jamestoyer/chocolatey-packages</packageSourceUrl>
+    <packageSourceUrl>https://github.com/DownAtTheBottomOfTheMoleHole/Terraform-Latest</packageSourceUrl>
     <tags>terraform hashicorp</tags>
     <copyright>HashiCorp 2015-2022</copyright>
     <licenseUrl>https://github.com/hashicorp/terraform/blob/master/LICENSE</licenseUrl>

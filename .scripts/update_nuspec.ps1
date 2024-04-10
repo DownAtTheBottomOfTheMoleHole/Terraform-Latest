@@ -53,7 +53,7 @@ function global:au_AfterUpdate {
     $releaseNotes = Get-ReleaseNotes $Latest.Version $Latest.ChangelogUrl
     Write-Verbose $releaseNotes
     $packagespath = '../.packages/terraform-latest.nuspec'
-    $currentDirectory = Get-Location
+    $currentDirectory = $PSScriptRoot
     $nuspec = Resolve-Path (Join-Path $currentDirectory $packagespath)
     Set-ReleaseNotes $nuspec $releaseNotes
 }
@@ -118,6 +118,8 @@ function global:au_GetLatest {
 # TLS 1.2 required by terraform's apis - below uses highest tls version available
 [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::SystemDefault
 
-Set-Location -Path (Resolve-Path (Join-Path $currentDirectory '../.packages'))
+$currentDirectory = $PSScriptRoot
+$packagesDirectory = Resolve-Path (Join-Path $PSScriptRoot '../.packages')
+Set-Location -Path $packagesDirectory
 Update-Package -NoCheckUrl -NoCheckChocoVersion -NoReadme -ChecksumFor none -Force:$Force
 Set-Location -Path $currentDirectory
