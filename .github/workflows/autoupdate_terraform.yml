@@ -45,4 +45,4 @@ jobs:
         run: |
           git add terraform.nuspec
           git commit -m "[${{ matrix.skip }} skip] Update terraform.nuspec"
-        if: ${{ startsWith(github.ref, 'refs/heads/' + matrix.skip) }}
+        if: ${{ startsWith(github.ref, 'refs/heads/renovate') }}
