@@ -1,5 +1,5 @@
 # VERSION FILE USED FOR DEPENDABOT AND RENOVATE ONLY!
 
 terraform {
-  required_version = "1.7.5"
+  required_version = "1.8.0"
 }
