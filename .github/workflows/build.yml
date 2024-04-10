@@ -8,7 +8,7 @@ on:
     branches:
       - main
 
-  workflow_dispatch:
+  workflow_dispatch: {}
 
 jobs:
   renovate-merge-bot:
@@ -26,10 +26,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4.1.1
 
       - name: Merge Dependabot PRs
-        uses: ahmadnassri/action-dependabot-auto-merge@v2.0.0
+        uses: ahmadnassri/action-dependabot-auto-merge@v2.6.6
         with:
           github-token: "${{ secrets.PAT }}"
           config: .github/auto-merge.yml
@@ -39,12 +39,12 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4.1.1
 
       - name: Choco pack
         uses: crazy-max/ghaction-chocolatey@v3.0.0
         with:
-          args: pack .\packages\terraform.nuspec
+          args: pack .\packages\terraform-latest.nuspec
 
       - name: Choco install
         uses: crazy-max/ghaction-chocolatey@v3.0.0

@@ -22,7 +22,7 @@
 
 <!-- Github Workflow BADGES -->
 
-[![GitHub Workflow Status (Automatically update terraform.nuspec)](https://img.shields.io/github/actions/workflow/status/RolfMoleman/Terraform-Latest/autoupdate_terraform.yml?style=for-the-badge&label=Automatically%20update%20terraform.nuspec)](https://github.com/RolfMoleman/Terraform-Latest/actions/workflows/autoupdate_terraform.yml)
+[![GitHub Workflow Status (Automatically update terraform-latest.nuspec.nuspec)](https://img.shields.io/github/actions/workflow/status/RolfMoleman/Terraform-Latest/autoupdate_terraform.yml?style=for-the-badge&label=Automatically%20update%20terraform-latest.nuspec)](https://github.com/RolfMoleman/Terraform-Latest/actions/workflows/autoupdate_terraform.yml)
 
 [![GitHub Workflow Status (build)](https://img.shields.io/github/actions/workflow/status/RolfMoleman/Terraform-Latest/build.yml?style=for-the-badge&label=Build)](https://github.com/RolfMoleman/Terraform-Latest/actions/workflows/build.yml)
 
