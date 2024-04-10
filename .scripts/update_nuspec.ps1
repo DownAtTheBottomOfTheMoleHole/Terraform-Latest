@@ -52,8 +52,9 @@ function global:au_AfterUpdate {
     # Note: Cannot use au_SearchReplace for the releaseNotes because they are multi-lined
     $releaseNotes = Get-ReleaseNotes $Latest.Version $Latest.ChangelogUrl
     Write-Verbose $releaseNotes
-    $packagespath = '../.packages'
-    $nuspec = Join-Path $packagespath "$($Latest.PackageName).nuspec" -Resolve
+    $packagespath = '../.packages/terraform-latest.nuspec'
+    $currentDirectory = Get-Location
+    $nuspec = Resolve-Path (Join-Path $currentDirectory $packagespath)
     Set-ReleaseNotes $nuspec $releaseNotes
 }
 
