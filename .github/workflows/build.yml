@@ -29,7 +29,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Merge Dependabot PRs
-        uses: ahmadnassri/action-dependabot-auto-merge@v2.0.0
+        uses: ahmadnassri/action-dependabot-auto-merge@v2.6.6
         with:
           github-token: "${{ secrets.PAT }}"
           config: .github/auto-merge.yml
