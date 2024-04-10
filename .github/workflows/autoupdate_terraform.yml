@@ -30,7 +30,7 @@ jobs:
       - name: Check if nuspec file exists
         shell: pwsh
         run: |
-          if (-not (Test-Path -Path ./terraform-latest.nuspec)) {
+          if (-not (Test-Path -Path ./packages/terraform-latest.nuspec)) {
             Write-Error "No nuspec file found in the package directory"
             exit 1
           }
