@@ -114,7 +114,7 @@ function global:au_GetLatest {
     }
 }
 
-# TLS 1.2 required by terraform's apis
-[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12
+# TLS 1.2 required by terraform's apis - below uses highest tls version available
+[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::SystemDefault
 
 Update-Package -NoCheckUrl -NoCheckChocoVersion -NoReadme -ChecksumFor none -Force:$Force
