@@ -110,7 +110,7 @@ these are the pre-commit hooks used for this repo:
 
 This repository contains the code and workflows to automatically build and publish the terraform-latest chocolatey package.
 this project uses a combination of dependabot and renovate to pickup the latest version fo terraform as soon as possible, to update the required_version in versions.tf and automatically produce the updated nuspec file.
-Once this has happened, the branch will automatically merge with main causing the build and publish pipeline to trigger which will cpush the latest version of terraform to chocolatey :chocolate_bar:
+Once this has happened, the branch will automatically merge with main causing the build and publish pipeline to trigger which will push the latest version of terraform to chocolatey :chocolate_bar:
 
 ---
 
@@ -314,7 +314,7 @@ Don't forget to give the project a star! Thanks again!
 5. Open a Pull Request
 
 ---
-**Note**: we ask you to please name branches sennsibly adhering to this naming convention:
+**Note**: we ask you to please name branches sensibly adhering to this naming convention:
 
 1. **main** - we tend to use main now [why?](https://www.theserverside.com/feature/Why-GitHub-renamed-its-master-branch-to-main)
 2. :bulb: **feature** branches created with either a `feature-` prefix or under a folder called feature.
