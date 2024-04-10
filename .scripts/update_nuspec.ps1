@@ -118,4 +118,6 @@ function global:au_GetLatest {
 # TLS 1.2 required by terraform's apis - below uses highest tls version available
 [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::SystemDefault
 
+Set-Location -Path (Resolve-Path (Join-Path $currentDirectory '../.packages'))
 Update-Package -NoCheckUrl -NoCheckChocoVersion -NoReadme -ChecksumFor none -Force:$Force
+Set-Location -Path $currentDirectory
