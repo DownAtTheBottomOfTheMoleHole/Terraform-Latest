@@ -1,11 +1,14 @@
-name: Automatically update terraform.nuspec
+name: Automatically update terraform-latest.nuspec
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
   cancel-in-progress: true
 permissions:
   contents: write
   pull-requests: write
-on: create
+on:
+  create:
+  workflow_dispatch: {}
+    
 
 jobs:
   job1:
@@ -16,7 +19,7 @@ jobs:
         skip: ['renovate']
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4.1.1
 
       - name: Install AU module
         shell: pwsh
@@ -27,7 +30,7 @@ jobs:
       - name: Check if nuspec file exists
         shell: pwsh
         run: |
-          if (-not (Test-Path -Path ./terraform.nuspec)) {
+          if (-not (Test-Path -Path ./terraform-latest.nuspec)) {
             Write-Error "No nuspec file found in the package directory"
             exit 1
           }
@@ -41,8 +44,8 @@ jobs:
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
 
-      - name: Commit changes to terraform.nuspec
+      - name: Commit changes to terraform-latest.nuspec
         run: |
-          git add terraform.nuspec
-          git commit -m "[${{ matrix.skip }} skip] Update terraform.nuspec"
+          git add terraform-latest.nuspec
+          git commit -m "[${{ matrix.skip }} skip] Update terraform-latest.nuspec"
         if: ${{ startsWith(github.ref, 'refs/heads/renovate') }}
