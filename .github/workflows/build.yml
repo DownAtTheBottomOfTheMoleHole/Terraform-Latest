@@ -44,7 +44,7 @@ jobs:
       - name: Choco pack
         uses: crazy-max/ghaction-chocolatey@v3.0.0
         with:
-          args: pack .\.packages\terraform-latest.nuspec
+          args: pack .\packages\terraform.nuspec
 
       - name: Choco install
         uses: crazy-max/ghaction-chocolatey@v3.0.0
