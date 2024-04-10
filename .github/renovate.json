@@ -9,8 +9,9 @@
   "automerge": true,
   "automergeComment": "automergeComment",
   "automergeSchedule": ["at any time"],
-  "automergeStrategy": "merge",
+  "automergeStrategy": "auto",
   "automergeType": "pr",
+  "platformAutomerge": false,
   "azure-pipelines": {
     "enabled": true,
     "fileMatch": ["\\.ya?ml$"]
@@ -89,8 +90,9 @@
     "automerge": false,
     "automergeComment": "Automatically update Major version",
     "automergeSchedule": ["at any time"],
-    "automergeStrategy": "merge",
+    "automergeStrategy": "auto",
     "automergeType": "pr",
+    "platformAutomerge": false,
     "description": "DO NOT automatically update and approve major versions"
   },
   "minor": {
@@ -99,8 +101,9 @@
     "automerge": true,
     "automergeComment": "Automatically update minor version",
     "automergeSchedule": ["at any time"],
-    "automergeStrategy": "merge",
+    "automergeStrategy": "auto",
     "automergeType": "pr",
+    "platformAutomerge": false,
     "description": "Automatically update and approve minor versions"
   },
   "npm": {
@@ -119,8 +122,9 @@
     "automerge": true,
     "automergeComment": "Automatically update patch version",
     "automergeSchedule": ["at any time"],
-    "automergeStrategy": "merge",
+    "automergeStrategy": "auto",
     "automergeType": "pr",
+    "platformAutomerge": false,
     "description": "Automatically update and approve patch versions"
   },
   "prConcurrentLimit": 10,
@@ -138,7 +142,8 @@
     "commitMessageTopic": "Terraform {{depName}}",
     "fileMatch": ["\\.tf$"],
     "pinDigests": false,
-    "automerge": true
+    "automerge": true,
+    "platformAutomerge": false
   },
   "timezone": "GB",
   "unicodeEmoji": true,
