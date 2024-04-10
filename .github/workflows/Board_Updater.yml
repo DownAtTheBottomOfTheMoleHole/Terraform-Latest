@@ -6,13 +6,14 @@ on:
       [opened, edited, deleted, closed, reopened, labeled, unlabeled, assigned]
   issue_comment:
     types: [created, edited, deleted]
+  
 
 jobs:
   alert:
     runs-on: ubuntu-latest
     steps:
       - name: Sync issue to Azure DevOps work item
-        uses: danhellem/github-actions-issue-to-work-item@v2.3.0
+        uses: danhellem/github-actions-issue-to-work-item@v2.3
         env:
           ado_token: "${{ secrets.ADO_PAT }}"
           github_token: "${{ secrets.PAT }}"
