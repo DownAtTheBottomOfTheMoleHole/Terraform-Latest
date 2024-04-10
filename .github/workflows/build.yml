@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Merge Renovate PRs
-        uses: int128/renovate-merge-bot@v1.0.0
+        uses: int128/renovate-merge-bot@v1.41.0
         with:
           github-app-id: ${{ secrets.BOT_APP_ID }}
           github-app-private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
