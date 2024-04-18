@@ -30,7 +30,7 @@ jobs:
         run: terraform -version
 
       - name: Save Choco package
-        uses: actions/upload-artifact@v4.3.1
+        uses: actions/upload-artifact@v4.3.2
         with:
           name: terraform-latest
           path: "${{ github.workspace }}/*.nupkg"
@@ -42,7 +42,7 @@ jobs:
 
     steps:
       - name: Restore Choco package
-        uses: actions/download-artifact@v4.1.4
+        uses: actions/download-artifact@v4.1.5
         with:
           name: terraform-latest
           path: ${{ github.workspace }}
