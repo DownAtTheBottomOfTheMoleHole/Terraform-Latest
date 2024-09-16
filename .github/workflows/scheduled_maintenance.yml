@@ -49,7 +49,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Render terraform docs inside the README.MD and push changes back to PR branch
-        uses: terraform-docs/gh-actions@v1.2.0
+        uses: terraform-docs/gh-actions@v1.2.2
         with:
           config-file: "/.config/.readme-terraform-docs.yml"
           find-dir: .
@@ -63,7 +63,7 @@ jobs:
           template: "<!-- start_of_terraform_docs -->\n{{ .Content }}\n<!-- end_of_terraform_docs -->"
 
       - name: Render terraform docs inside the TERRAFORM.MD and push changes back to PR branch
-        uses: terraform-docs/gh-actions@v1.2.0
+        uses: terraform-docs/gh-actions@v1.2.2
         with:
           config-file: "/.config/.terraform-terraform-docs.yml"
           find-dir: .
@@ -98,7 +98,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Archive production artifacts
-        uses: actions/upload-artifact@v4.3.6
+        uses: actions/upload-artifact@v4.4.0
         with:
           name: MegaLinter reports
           path: |
@@ -108,7 +108,7 @@ jobs:
       - name: Create Pull Request with applied fixes
         id: cpr
         if: steps.ml.outputs.has_updated_sources == 1 && (env.APPLY_FIXES_EVENT == 'all' || env.APPLY_FIXES_EVENT == github.event_name) && env.APPLY_FIXES_MODE == 'pull_request' && (github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository) && !contains(github.event.head_commit.message, 'skip fix')
-        uses: peter-evans/create-pull-request@v6.1.0
+        uses: peter-evans/create-pull-request@v7.0.3
         with:
           body: |
             <!---
