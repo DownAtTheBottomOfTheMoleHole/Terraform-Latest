@@ -78,7 +78,7 @@ jobs:
       # Git Checkout
       - name: Checkout Code
         if: success() || failure()
-        uses: actions/checkout@v4.2.0
+        uses: actions/checkout@v4.2.1
         with:
           token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
           fetch-depth: 0 # If you use VALIDATE_ALL_CODEBASE = true, you can remove this line to improve performances
@@ -101,7 +101,7 @@ jobs:
       # Upload MegaLinter artifacts
       - name: Archive production artifacts
         if: ${{ success() }} || ${{ failure() }}
-        uses: actions/upload-artifact@v4.4.0
+        uses: actions/upload-artifact@v4.4.1
         with:
           name: MegaLinter reports
           path: |
@@ -204,7 +204,7 @@ jobs:
     if: ${{ always() && github.event_name != 'cancel' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.2.0
+      - uses: actions/checkout@v4.2.1
         with:
           ref: ${{ github.event.pull_request.head.ref }}
 
@@ -274,7 +274,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ (github.actor == 'dependabot[bot]' || github.actor == 'renovate[bot]') && github.event_name == 'pull_request' && (needs.MegaLinter.result == 'success' || needs.MegaLinter.result == 'failure')}}
     steps:
-      - uses: actions/checkout@v4.2.0
+      - uses: actions/checkout@v4.2.1
       - uses: ahmadnassri/action-dependabot-auto-merge@v2.6.6
         with:
           github-token: "${{ secrets.PAT }}"
@@ -285,8 +285,8 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ (github.actor == 'dependabot[bot]' || github.actor == 'renovate[bot]') && github.event_name == 'pull_request' && (needs.MegaLinter.result == 'success' || needs.MegaLinter.result == 'failure')}}
     steps:
-      - uses: actions/checkout@v4.2.0
-      - uses: int128/renovate-merge-bot@v1.46.0
+      - uses: actions/checkout@v4.2.1
+      - uses: int128/renovate-merge-bot@v1.47.0
         with:
           github-app-id: ${{ secrets.BOT_APP_ID }}
           github-app-private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
