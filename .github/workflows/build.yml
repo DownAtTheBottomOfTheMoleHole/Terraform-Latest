@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Merge Renovate PRs
-        uses: int128/renovate-merge-bot@v1.46.0
+        uses: int128/renovate-merge-bot@v1.47.0
         with:
           github-app-id: ${{ secrets.BOT_APP_ID }}
           github-app-private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4.2.0
+        uses: actions/checkout@v4.2.1
 
       - name: Merge Dependabot PRs
         uses: ahmadnassri/action-dependabot-auto-merge@v2.6.6
@@ -39,7 +39,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4.2.0
+        uses: actions/checkout@v4.2.1
 
       - name: Choco pack
         uses: crazy-max/ghaction-chocolatey@v3.0.0
