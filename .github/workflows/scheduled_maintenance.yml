@@ -44,7 +44,7 @@ jobs:
     if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.2.1
+      - uses: actions/checkout@v4.2.2
         with:
           ref: ${{ github.event.pull_request.head.ref }}
 
@@ -87,13 +87,13 @@ jobs:
       pull-requests: write
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4.2.1
+        uses: actions/checkout@v4.2.2
         with:
           token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
 
       - name: MegaLinter
         id: ml
-        uses: oxsecurity/megalinter@v8.1.0
+        uses: oxsecurity/megalinter@v8.2.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
