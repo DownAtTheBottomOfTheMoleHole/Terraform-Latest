@@ -209,7 +209,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Render terraform docs inside the README.MD and push changes back to PR branch
-        uses: terraform-docs/gh-actions@v1.3.0
+        uses: terraform-docs/gh-actions@v1.4.0
         if: success() || failure()
         with:
           #args: "-lockfile --read-comments --required --sensitive --show all --header-from ./terraform-docs/tf_header.txt --footer-from ./terraform-docs/tf_footer.txt"
@@ -230,7 +230,7 @@ jobs:
           ##working-dir: .
 
       - name: Render terraform docs inside the TERRAFORM.MD and push changes back to PR branch
-        uses: terraform-docs/gh-actions@v1.3.0
+        uses: terraform-docs/gh-actions@v1.4.0
         if: success() || failure()
         with:
           #args: "-lockfile --read-comments --required --sensitive --show all --header-from ./terraform-docs/tf_header.txt --footer-from ./terraform-docs/tf_footer.txt"
@@ -286,7 +286,7 @@ jobs:
     if: ${{ (github.actor == 'dependabot[bot]' || github.actor == 'renovate[bot]') && github.event_name == 'pull_request' && (needs.MegaLinter.result == 'success' || needs.MegaLinter.result == 'failure')}}
     steps:
       - uses: actions/checkout@v4.2.2
-      - uses: int128/renovate-merge-bot@v1.53.0
+      - uses: int128/renovate-merge-bot@v1.54.0
         with:
           github-app-id: ${{ secrets.BOT_APP_ID }}
           github-app-private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
