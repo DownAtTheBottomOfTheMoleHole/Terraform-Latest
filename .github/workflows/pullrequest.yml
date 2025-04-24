@@ -187,7 +187,7 @@ jobs:
         run: sudo chown -Rc $UID .git/
       - name: Commit and push applied linter fixes
         if: steps.ml.outputs.has_updated_sources == 1 && (env.APPLY_FIXES_EVENT == 'all' || env.APPLY_FIXES_EVENT == github.event_name) && env.APPLY_FIXES_MODE == 'commit' && github.ref != 'refs/heads/main' && (github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository) && !contains(github.event.head_commit.message, 'skip fix')
-        uses: stefanzweifel/git-auto-commit-action@v5.1.0
+        uses: stefanzweifel/git-auto-commit-action@v5.2.0
         with:
           branch: ${{ github.event.pull_request.head.ref || github.head_ref || github.ref }}
           commit_message: "[MegaLinter] Apply linters fixes"
@@ -209,7 +209,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Render terraform docs inside the README.MD and push changes back to PR branch
-        uses: terraform-docs/gh-actions@v1.3.0
+        uses: terraform-docs/gh-actions@v1.4.1
         if: success() || failure()
         with:
           #args: "-lockfile --read-comments --required --sensitive --show all --header-from ./terraform-docs/tf_header.txt --footer-from ./terraform-docs/tf_footer.txt"
@@ -230,7 +230,7 @@ jobs:
           ##working-dir: .
 
       - name: Render terraform docs inside the TERRAFORM.MD and push changes back to PR branch
-        uses: terraform-docs/gh-actions@v1.3.0
+        uses: terraform-docs/gh-actions@v1.4.1
         if: success() || failure()
         with:
           #args: "-lockfile --read-comments --required --sensitive --show all --header-from ./terraform-docs/tf_header.txt --footer-from ./terraform-docs/tf_footer.txt"
@@ -286,7 +286,7 @@ jobs:
     if: ${{ (github.actor == 'dependabot[bot]' || github.actor == 'renovate[bot]') && github.event_name == 'pull_request' && (needs.MegaLinter.result == 'success' || needs.MegaLinter.result == 'failure')}}
     steps:
       - uses: actions/checkout@v4.2.2
-      - uses: int128/renovate-merge-bot@v1.53.0
+      - uses: int128/renovate-merge-bot@v1.55.0
         with:
           github-app-id: ${{ secrets.BOT_APP_ID }}
           github-app-private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
