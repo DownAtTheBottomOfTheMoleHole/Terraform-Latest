@@ -14,15 +14,15 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5.0.0
 
       - name: Choco pack
-        uses: crazy-max/ghaction-chocolatey@v3.3.0
+        uses: crazy-max/ghaction-chocolatey@v3.4.0
         with:
           args: pack .\packages\terraform-latest.nuspec
 
       - name: Choco install
-        uses: crazy-max/ghaction-chocolatey@v3.3.0
+        uses: crazy-max/ghaction-chocolatey@v3.4.0
         with:
           args: install -source . -force terraform-latest
 
@@ -42,13 +42,13 @@ jobs:
 
     steps:
       - name: Restore Choco package
-        uses: actions/download-artifact@v4.3.0
+        uses: actions/download-artifact@v5.0.0
         with:
           name: terraform-latest
           path: ${{ github.workspace }}
 
       - name: Choco install
-        uses: crazy-max/ghaction-chocolatey@v3.3.0
+        uses: crazy-max/ghaction-chocolatey@v3.4.0
         with:
           args: install -source . -force terraform-latest
 
@@ -56,11 +56,11 @@ jobs:
         run: terraform -version
 
       - name: Add Choco API Key
-        uses: crazy-max/ghaction-chocolatey@v3.3.0
+        uses: crazy-max/ghaction-chocolatey@v3.4.0
         with:
           args: apikey --key ${{secrets.CHOCO_API_KEY}} --source https://push.chocolatey.org/
 
       - name: Publish (noop)
-        uses: crazy-max/ghaction-chocolatey@v3.3.0
+        uses: crazy-max/ghaction-chocolatey@v3.4.0
         with:
           args: push --source https://push.chocolatey.org/
