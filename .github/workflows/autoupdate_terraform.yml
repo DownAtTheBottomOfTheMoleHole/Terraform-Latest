@@ -19,7 +19,7 @@ jobs:
         skip: ['renovate']
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5.0.0
 
       - name: Install AU module
         shell: pwsh
