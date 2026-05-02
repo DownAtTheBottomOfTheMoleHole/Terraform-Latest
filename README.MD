@@ -1,5 +1,7 @@
 # Terraform-latest Chocolatey Package
 
+![Down At The Bottom Of The Mole Hole banner](./.assets/org-banner.png)
+
 <!-- PROJECT SHIELDS -->
 <!--
 *** I'm using markdown "reference style" links for readability.
