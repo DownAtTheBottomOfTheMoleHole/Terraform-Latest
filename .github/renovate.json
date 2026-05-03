@@ -4,8 +4,6 @@
   "assignAutomerge": true,
   "assigneesFromCodeOwners": true,
   "assigneesSampleSize": 2,
-  "autoApprove": true,
-  "autodiscover": true,
   "automerge": true,
   "automergeComment": "automergeComment",
   "automergeSchedule": ["at any time"],
@@ -38,7 +36,6 @@
       "(^|/)action\\.ya?ml$"
     ]
   },
-  "githubTokenWarn": true,
   "gomod": {
     "fileMatch": ["(^|/)go\\.mod$"],
     "pinDigests": false
@@ -83,10 +80,7 @@
     "fileMatch": ["(^|/)kustomization\\.ya?ml$"],
     "pinDigests": false
   },
-  "logFileLevel": "debug",
   "major": {
-    "autoApprove": false,
-    "autodiscover": true,
     "automerge": false,
     "automergeComment": "Automatically update Major version",
     "automergeSchedule": ["at any time"],
@@ -96,8 +90,6 @@
     "description": "DO NOT automatically update and approve major versions"
   },
   "minor": {
-    "autoApprove": true,
-    "autodiscover": true,
     "automerge": true,
     "automergeComment": "Automatically update minor version",
     "automergeSchedule": ["at any time"],
@@ -111,14 +103,7 @@
     "versioning": "npm"
   },
   "npmrcMerge": true,
-  "onboarding": true,
-  "onboardingConfig": {
-    "$schema": "https://docs.renovatebot.com/renovate-schema.json"
-  },
-  "onboardingConfigFileName": ".github/renovate.json",
   "patch": {
-    "autoApprove": true,
-    "autodiscover": true,
     "automerge": true,
     "automergeComment": "Automatically update patch version",
     "automergeSchedule": ["at any time"],
@@ -146,7 +131,6 @@
     "platformAutomerge": false
   },
   "timezone": "GB",
-  "unicodeEmoji": true,
   "updatePinnedDependencies": true,
   "useBaseBranchConfig": "merge"
 }
