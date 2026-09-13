@@ -112,12 +112,13 @@
     "platformAutomerge": false,
     "description": "Automatically update and approve patch versions"
   },
-  "prConcurrentLimit": 10,
+  "prConcurrentLimit": 3,
+  "prHourlyLimit": 1,
   "prCreation": "immediate",
   "pruneBranchAfterAutomerge": true,
   "rebaseWhen": "auto",
   "recreateWhen": "auto",
-  "schedule": ["at any time"],
+  "schedule": ["before 7am on monday"],
   "semanticCommits": "auto",
   "semanticCommitScope": "deps",
   "semanticCommitType": "chore",
@@ -129,6 +130,12 @@
     "pinDigests": false,
     "automerge": true,
     "platformAutomerge": false
+  },
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "prConcurrentLimit": 1,
+    "labels": ["security", "renovate"],
+    "automerge": false
   },
   "timezone": "GB",
   "updatePinnedDependencies": true,
