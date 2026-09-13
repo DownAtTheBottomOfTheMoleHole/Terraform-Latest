@@ -270,6 +270,7 @@ jobs:
 
   renovate-merge-bot:
     name: "auto merge renovate"
+    needs: [MegaLinter]
     runs-on: ubuntu-latest
     if: ${{ github.actor == 'renovate[bot]' && github.event_name == 'pull_request' && (needs.MegaLinter.result == 'success' || needs.MegaLinter.result == 'failure')}}
     steps:

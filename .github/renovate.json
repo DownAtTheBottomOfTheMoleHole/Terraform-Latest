@@ -133,7 +133,6 @@
   },
   "vulnerabilityAlerts": {
     "enabled": true,
-    "prConcurrentLimit": 1,
     "labels": ["security", "renovate"],
     "automerge": false
   },
