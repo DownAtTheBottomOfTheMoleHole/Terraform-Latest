@@ -5,7 +5,7 @@
     <!-- Read this before publishing packages to chocolatey.org: https://github.com/chocolatey/chocolatey/wiki/CreatePackages -->
     <id>terraform-latest</id>
     <title>Terraform</title>
-    <version>1.7.5</version>
+    <version>1.9.3</version>
     <authors>Mitchell Hashimoto, HashiCorp</authors>
     <owners>RolfMoleman3391</owners>
     <summary>Terraform is a tool for building, changing, and versioning infrastructure safely and efficiently. Terraform can manage existing and popular service providers as well as custom in-house solutions.</summary>
@@ -22,14 +22,21 @@ The key features of Terraform are:
 For more information, see the [introduction section](http://www.terraform.io/intro) of the Terraform website.
     </description>
     <releaseNotes>
-## 1.7.5 (March 13, 2024)
+## 1.9.3 (July 24, 2024)
+
+ENHANCEMENTS:
+
+* Terraform now returns a more specific error message in the awkward situation where an input variable validation rule is known to have failed (`condition` returned `false`) but the error message is derived from an unknown value. ([#35400](https://github.com/hashicorp/terraform/pull/35400))
 
 BUG FIXES:
 
-* backend/s3: When using s3 backend and encountering a network issue, the retry code would fail with "failed to rewind transport stream for retry". Now the retry should be successful. ([#34796](https://github.com/hashicorp/terraform/pull/34796))
+* core: Terraform no longer performs an unnecessary refresh when removing an instance targeted by a `removed` block. ([#35458](https://github.com/hashicorp/terraform/pull/35458))
+* config generation: Fix validation error when using nested computed or deprecated attributes. ([#35484](https://github.com/hashicorp/terraform/pull/35484))
+* Updated to newer github.com/hashicorp/go-retryablehttp version, addressing CVE-2024-6104, and bringing in updates for several indirect dependencies. ([#35473](https://github.com/hashicorp/terraform/pull/35473))
+* Moved to building with Go 1.22.5, which addresses CVE-2024-24791 and several other non-security bugs. ([#35494](https://github.com/hashicorp/terraform/pull/35494))
 
 ## Previous Releases
-For more information on previous releases, check out the changelog on [GitHub](https://github.com/hashicorp/terraform/blob/v1.7.5/CHANGELOG.md).</releaseNotes>
+For more information on previous releases, check out the changelog on [GitHub](https://github.com/hashicorp/terraform/blob/v1.9.3/CHANGELOG.md).</releaseNotes>
     <projectUrl>http://www.terraform.io</projectUrl>
     <docsUrl>https://www.terraform.io/docs/index.html</docsUrl>
     <bugTrackerUrl>https://github.com/hashicorp/terraform/issues</bugTrackerUrl>
