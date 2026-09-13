@@ -268,22 +268,11 @@ jobs:
           skipDraft: true
           skipKeywords: wip, draft
 
-  auto-merge:
-    name: "auto-merge"
-    needs: [MegaLinter]
-    runs-on: ubuntu-latest
-    if: ${{ (github.actor == 'dependabot[bot]' || github.actor == 'renovate[bot]') && github.event_name == 'pull_request' && (needs.MegaLinter.result == 'success' || needs.MegaLinter.result == 'failure')}}
-    steps:
-      - uses: actions/checkout@v4.2.2
-      - uses: ahmadnassri/action-dependabot-auto-merge@v2.6.6
-        with:
-          github-token: "${{ secrets.PAT }}"
-          config: .github/auto-merge.yml
-
   renovate-merge-bot:
     name: "auto merge renovate"
+    needs: [MegaLinter]
     runs-on: ubuntu-latest
-    if: ${{ (github.actor == 'dependabot[bot]' || github.actor == 'renovate[bot]') && github.event_name == 'pull_request' && (needs.MegaLinter.result == 'success' || needs.MegaLinter.result == 'failure')}}
+    if: ${{ github.actor == 'renovate[bot]' && github.event_name == 'pull_request' && (needs.MegaLinter.result == 'success' || needs.MegaLinter.result == 'failure')}}
     steps:
       - uses: actions/checkout@v4.2.2
       - uses: int128/renovate-merge-bot@v1.55.0

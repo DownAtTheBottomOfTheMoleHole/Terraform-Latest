@@ -21,20 +21,6 @@ jobs:
           github-app-id: ${{ secrets.BOT_APP_ID }}
           github-app-private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
 
-  auto-merge:
-    name: "auto merge dependabot"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4.2.2
-
-      - name: Merge Dependabot PRs
-        uses: ahmadnassri/action-dependabot-auto-merge@v2.6.6
-        with:
-          github-token: "${{ secrets.PAT }}"
-          config: .github/auto-merge.yml
-          target: minor
-
   terraform:
     runs-on: windows-latest
     steps:
